@@ -1,0 +1,43 @@
+	/** BODY ----------------------------------------------- **/
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+}
+
+	/** MENU ----------------------------------------------- **/
+
+ul#menu {
+	display:flex;
+	padding: 0em;
+}
+
+ul#menu li {
+	display:block;
+	padding: 0em 1em 0em 1em;
+	text-decoration: none;
+}
+
+	/** GALLERY -------------------------------------------- **/
+
+div.gallery {
+	display:flex;
+	flex-direction:row;
+	flex-wrap:wrap;
+	width:90%;
+	background-color:gray;
+}
+
+a.display {
+	width:120px;
+	height:120px;
+	margin:5px;
+	padding:5px;
+}
+
+img.thumb {
+}
+

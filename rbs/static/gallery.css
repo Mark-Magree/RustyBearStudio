@@ -1,0 +1,13 @@
+div.gallery {
+	display:flex;
+	flex-direction:row;
+	flex-wrap:wrap;
+	width:90%;
+	background-color:gray;
+}
+
+a.display {
+	width:120px;
+	margin:5px;
+	padding:5px;
+}

@@ -1,0 +1,9 @@
+ul#menu {
+	display:flex;
+}
+
+ul#menu li {
+	display:block;
+	padding: 0em 1em 0em 1em;
+	text-decoration: none;
+}

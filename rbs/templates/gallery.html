@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>gallery</h2>
+<div class=gallery>
+{% for i in images %}
+	<a class=display href={{img_dir}}{{i}}>
+		<img class=thumb src={{img_dir}}thumbs/{{i}}>
+	</a>
+{% endfor %}
+</div>
+{% endblock %}
