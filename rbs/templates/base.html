@@ -8,7 +8,9 @@
 		<ul id="menu">
 			<li><a href="/">Home</a></li>
 			<li><a href="/about">About</a></li>
-			<li><a href="/gallery">Gallery</a></li>
+			{% for x in gallery_list %}
+			<li><a href="{{x}}">{{x|replace('_',' ')|title()}}</a></li>
+			{% endfor %}
 		</ul>
 		{% block content %}{% endblock %}
 	</body>
