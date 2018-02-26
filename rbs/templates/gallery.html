@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>gallery</h2>
+<h2>{{ gallery_name | replace('_',' ') | title() }}</h2>
 <div class=gallery>
 {% for i in images %}
 	<a class=display href={{img_dir}}{{i}}>
