@@ -1,17 +1,36 @@
-<html>
-	<head>
-		<title>Rusty Bear Studio</title>
-		<link rel="stylesheet" type="text/css" href="static/style.css">
-	</head>
-	<body>
-		<a href="/"><h1>Rusty Bear Studio</h1></a>
-		<ul id="menu">
-			<li><a href="/">Home</a></li>
-			<li><a href="/about">About</a></li>
-			{% for x in gallery_list %}
-			<li><a href="{{x}}">{{x|replace('_',' ')|title()}}</a></li>
-			{% endfor %}
-		</ul>
-		{% block content %}{% endblock %}
-	</body>
-</html>
+{% extends "bootstrap/base.html" %}
+{% block title %}Rusty Bear Studio{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-default navbar-static-top">
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/">RBS Home</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/about">About</a></li>
+				<li class="active"><a href="/contact">Contact</a></li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gallery List
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+{% for x in gallery_list %}
+						<li class="active">
+							<a href="{{x}}">
+								{{x|replace('_',' ')|title()}}
+							</a>
+						</li>
+{% endfor %}
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+{% endblock %}
+
+<a href="/"><h1>Rusty Bear Studio</h1></a>
+
+{% block content %}{% endblock %}

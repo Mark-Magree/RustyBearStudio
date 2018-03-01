@@ -1,7 +1,9 @@
 from flask import render_template, Flask
+from flask_bootstrap import Bootstrap
 from os import listdir, path
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
 
 gal_dir = "static"
 gallery_list = []
