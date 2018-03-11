@@ -22,6 +22,11 @@ def about():
     return render_template('about.html',
                             gallery_list=gallery_list)
 
+@app.route('/contact')
+def contact():
+    return render_template('contact.html',
+                            gallery_list=gallery_list)
+
 @app.route('/gallery')
 def galleries():
     #TODO display image from each gallery
@@ -30,13 +35,14 @@ def galleries():
 
 @app.route('/<gallery>')
 def gallery(gallery):
-    '''open specific gallery or return page with list of galleries'''
+    '''open specific gallery OR return page with list of galleries'''
     img_dir = f"{gal_dir}/{gallery}/"
     if path.isdir(img_dir):
         images = [i for i in listdir(img_dir) if i.endswith('.jpg')]
         return render_template('gallery.html',
                                 img_dir=img_dir,
                                 images=images,
+                                gallery_name=gallery,
                                 gallery_list=gallery_list)
     else:
         return render_template('galleries.html',

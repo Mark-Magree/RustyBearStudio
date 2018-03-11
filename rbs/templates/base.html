@@ -2,7 +2,8 @@
 {% block title %}Rusty Bear Studio{% endblock %}
 
 {% block navbar %}
-<nav class="navbar navbar-default navbar-static-top">
+{{ super() }}
+<nav class="navbar navbar-default navbar-static-top" role="navigation" id="myNavbar">
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="/">RBS Home</a>
@@ -30,7 +31,5 @@
 	</div>
 </nav>
 {% endblock %}
-
-<a href="/"><h1>Rusty Bear Studio</h1></a>
 
 {% block content %}{% endblock %}

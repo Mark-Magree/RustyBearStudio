@@ -1,11 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>{{ gallery_name | replace('_',' ') | title() }}</h2>
-<div class=gallery>
+{% block header %}{% endblock %}
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+			<h1>
+				{{ gallery_name | replace('_',' ') | title() }}
+			</h1>
+		</div>
+
 {% for i in images %}
-	<a class=display href={{img_dir}}{{i}}>
-		<img class=thumb src={{img_dir}}thumbs/{{i}}>
-	</a>
+		<div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6">
+			<a href="{{img_dir}}{{i}}" class="thumbnail">
+				<img src="{{img_dir}}thumbs/{{i}}" class="img-responsive">
+			</a>
+		</div>
 {% endfor %}
+	</div>
 </div>
 {% endblock %}
