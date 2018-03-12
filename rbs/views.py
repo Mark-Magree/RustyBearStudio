@@ -14,6 +14,7 @@ for f in listdir(gal_dir):
 @app.route('/')
 @app.route('/index')
 def index():
+    #TODO connect to database of shows and display them
     return render_template('index.html',
                             gallery_list=gallery_list)
 
@@ -25,12 +26,6 @@ def about():
 @app.route('/contact')
 def contact():
     return render_template('contact.html',
-                            gallery_list=gallery_list)
-
-@app.route('/gallery')
-def galleries():
-    #TODO display image from each gallery
-    return render_template('galleries.html',
                             gallery_list=gallery_list)
 
 @app.route('/<gallery>')
