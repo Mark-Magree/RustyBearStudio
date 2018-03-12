@@ -8,7 +8,7 @@ bootstrap = Bootstrap(app)
 gal_dir = "static"
 gallery_list = []
 for f in listdir(gal_dir):
-    if path.isdir(f"{gal_dir}/{f}"):
+    if path.isdir(f"{gal_dir}/{f}/thumbs"):
         gallery_list.append(f)
 
 @app.route('/')
@@ -28,11 +28,16 @@ def contact():
     return render_template('contact.html',
                             gallery_list=gallery_list)
 
+@app.route('/policy')
+def policy():
+    return render_template('policy.html',
+                            gallery_list=gallery_list)
+
 @app.route('/<gallery>')
 def gallery(gallery):
-    '''open specific gallery OR return page with list of galleries'''
+    '''open specific gallery'''
     img_dir = f"{gal_dir}/{gallery}/"
-    if path.isdir(img_dir):
+    if path.isdir(f"{img_dir}thumbs"):
         images = [i for i in listdir(img_dir) if i.endswith('.jpg')]
         return render_template('gallery.html',
                                 img_dir=img_dir,
@@ -40,7 +45,7 @@ def gallery(gallery):
                                 gallery_name=gallery,
                                 gallery_list=gallery_list)
     else:
-        return render_template('galleries.html',
+        return render_template('index.html',
                                 gallery_list=gallery_list)
 
 if __name__ == "__main__":
