@@ -1,6 +1,9 @@
 from flask import render_template, Flask
 from flask_bootstrap import Bootstrap
 from os import listdir, path
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+from database import Event, Base
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
@@ -14,8 +17,13 @@ for f in listdir(gal_dir):
 @app.route('/')
 @app.route('/index')
 def index():
-    #TODO connect to database of shows and display them
+    engine = create_engine('sqlite:///event_info.db')
+    Session = sessionmaker(bind=engine)
+    s = Session()
+    name_query = s.query(Event)
+    show_list = [e.name for e in name_query.all()]
     return render_template('index.html',
+                            show_list=show_list,
                             gallery_list=gallery_list)
 
 @app.route('/about')
