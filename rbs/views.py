@@ -1,9 +1,9 @@
-from flask import render_template, Flask
+from flask import render_template, Flask, redirect, url_for, session, flash
 from flask_bootstrap import Bootstrap
-from flask_wtf import Form
 from flask_mail import Mail, Message
-from wtforms import StringField, SubmitField
-from wtforms.validators import Required
+from flask_wtf import Form
+from wtforms import StringField, SubmitField, TextAreaField
+from wtforms.validators import Required, Email
 from os import listdir, path, environ
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
@@ -24,19 +24,26 @@ app.config['MAIL_DEFAULT_SENDER'] = environ.get("EMAIL_ADDR")
 #init mail after config or variables won't be set
 mail = Mail(app)
 
-msg = Message("Hello",
-                sender="yesyesyesprobably@gmail.com",
-                recipients=["yesyesyesprobably@gmail.com"])
-msg.body = "testing"
-msg.html = "<b>testing</b>"
-with app.app_context():
-    mail.send(msg)
-
 gal_dir = "static"
 gallery_list = []
 for f in listdir(gal_dir):
     if path.isdir(f"{gal_dir}/{f}/thumbs"):
         gallery_list.append(f)
+
+def send_query(name,email,query):
+    msg = Message("Customer inquery")
+    msg.sender="yesyesyesprobably@gmail.com"
+    msg.recipients=["yesyesyesprobably@gmail.com"]
+    msg.body = f"{name} - {query} \n {email}"
+    msg.html = f"<b>{name}</b> - {query} <br> {email}"
+    with app.app_context():
+        mail.send(msg)
+
+class QueryForm(Form):
+    name = StringField('Name:')
+    email = StringField('Email:', validators=[Required(),Email()])
+    query = TextAreaField('Type your question here:', validators=[Required()])
+    submit = SubmitField('Submit')
 
 @app.route('/')
 @app.route('/index')
@@ -55,9 +62,17 @@ def about():
     return render_template('about.html',
                             gallery_list=gallery_list)
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET','POST'])
 def contact():
+    form = QueryForm()
+    if form.validate_on_submit():
+        session['name'] = form.name.data
+        send_query(name=form.name.data,email=form.email.data,
+                query=form.query.data)
+        flash('Your message has been sent. Thank you!')
+        return redirect(url_for('contact'))
     return render_template('contact.html',
+                            form=form,
                             gallery_list=gallery_list)
 
 @app.route('/policy')
