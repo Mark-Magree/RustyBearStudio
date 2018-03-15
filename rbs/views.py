@@ -1,12 +1,36 @@
 from flask import render_template, Flask
 from flask_bootstrap import Bootstrap
-from os import listdir, path
+from flask_wtf import Form
+from flask_mail import Mail, Message
+from wtforms import StringField, SubmitField
+from wtforms.validators import Required
+from os import listdir, path, environ
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from database import Event, Base
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
+
+app.config['SECRET_KEY'] = environ.get("SECRET_KEY")
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USERNAME'] = environ.get("EMAIL_ADDR")
+app.config['MAIL_PASSWORD'] = environ.get("EMAIL_PASS")
+app.config['MAIL_DEFAULT_SENDER'] = environ.get("EMAIL_ADDR")
+
+#init mail after config or variables won't be set
+mail = Mail(app)
+
+msg = Message("Hello",
+                sender="yesyesyesprobably@gmail.com",
+                recipients=["yesyesyesprobably@gmail.com"])
+msg.body = "testing"
+msg.html = "<b>testing</b>"
+with app.app_context():
+    mail.send(msg)
 
 gal_dir = "static"
 gallery_list = []
@@ -21,7 +45,7 @@ def index():
     Session = sessionmaker(bind=engine)
     s = Session()
     name_query = s.query(Event)
-    show_list = [e.name for e in name_query.all()]
+    show_list = name_query.all()
     return render_template('index.html',
                             show_list=show_list,
                             gallery_list=gallery_list)

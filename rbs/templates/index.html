@@ -2,11 +2,16 @@
 {% block content %}
 <div class="container">
 	<div class="jumbotron">
+		<div class="row">
 		<h1>Rusty Bear Studio</h1>
 		<h2>by Cristen Magree</h2>
+		<br>
+		<h2 class="text-center">Show List</h2>
 		{% for name in show_list %}
-		<h3>{{name}}</h3>
+		<p class="col-xs-8">{{name.name}}</p>
+		<p class="col-xs-4">{{name.date}}</p>
 		{% endfor %}
+		</div>
 	</div>
 </div>
 {% endblock %}
