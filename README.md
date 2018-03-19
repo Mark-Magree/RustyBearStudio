@@ -25,4 +25,3 @@ Schedule:
 	1.2		CMS for admins to edit descriptions?
 
 	2.0		Web store
-
