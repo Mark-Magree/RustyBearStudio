@@ -48,7 +48,7 @@ class QueryForm(Form):
 @app.route('/')
 @app.route('/index')
 def index():
-    engine = create_engine('sqlite:///event_info.db')
+    engine = create_engine('sqlite:///rbs.db')
     Session = sessionmaker(bind=engine)
     s = Session()
     name_query = s.query(Event)
@@ -64,6 +64,7 @@ def about():
 
 @app.route('/contact', methods=['GET','POST'])
 def contact():
+    '''Contact form for questions or orders (for now)'''
     form = QueryForm()
     if form.validate_on_submit():
         session['name'] = form.name.data
