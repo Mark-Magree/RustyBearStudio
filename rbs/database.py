@@ -15,6 +15,8 @@ class Event(Base):
     street_name = Column(String(250))
     street_number = Column(String(250))
     city = Column(String(250))
+    def __repr__(self):
+        return f"<Event(name={self.name}, date={self.day}/{self.month}/{self.year}, address={self.street_number} {self.street_name}, {self.city})>"
 
 class Image(Base):
     __tablename__ = 'image'
@@ -28,7 +30,7 @@ class Image(Base):
     def __repr__(self):
         return f"<Image(name={self.file_name}, loc={self.file_loc}, price={self.price}, sold={self.sold})>"
 
-engine = create_engine('sqlite:///rbs.db', echo=True)
+engine = create_engine('sqlite:///rbs.db', echo=False)
 
 if __name__ == "__main__":
     Base.metadata.create_all(engine)

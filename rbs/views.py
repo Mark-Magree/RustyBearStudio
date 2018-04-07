@@ -7,7 +7,7 @@ from wtforms.validators import Required, Email
 from os import listdir, path, environ
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from database import Event, Base
+from database import Event, Image, Base
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
@@ -84,15 +84,27 @@ def policy():
 @app.route('/<gallery>')
 def gallery(gallery):
     '''open specific gallery'''
-    img_dir = f"{gal_dir}/{gallery}/"
-    if path.isdir(f"{img_dir}thumbs"):
+    img_dir = f"{gal_dir}/{gallery}"
+    if path.isdir(f"{img_dir}/thumbs"):
+        engine = create_engine('sqlite:///rbs.db')
+        Session = sessionmaker(bind=engine)
+        s = Session()
         images = [i for i in listdir(img_dir) if i.endswith('.jpg')]
+        db_image_info = s.query(Image).filter_by(file_loc=img_dir).all()
+        image_info = {}
+        for i in db_image_info:
+            image_info[i.file_name] = {"image_name": i.image_name,
+                                        "description": i.description,
+                                        "price": i.price,
+                                        "sold": i.sold}
         return render_template('gallery.html',
-                                img_dir=img_dir,
                                 images=images,
+                                image_info=image_info,
+                                img_dir=img_dir,
                                 gallery_name=gallery,
                                 gallery_list=gallery_list)
     else:
+        #TODO Redirect instead?
         return render_template('index.html',
                                 gallery_list=gallery_list)
 
