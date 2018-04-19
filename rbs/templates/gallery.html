@@ -9,14 +9,26 @@
 			</h1>
 		</div>
 
-{% for i in images %}
+		{% for i in images %}
 		<div class="gallery_product col-lg-3 col-md-4 col-sm-4 col-xs-6">
-			<a href="{{img_dir}}/{{i}}" class="thumbnail">
-				<img src="{{img_dir}}/thumbs/{{i}}" class="img-responsive">
-				<p>{{image_info[i]["image_name"]}}</p>
-			</a>
+			<div class="thumbnail text-center">
+				<a href="{{img_dir}}/{{i}}" class="">
+					<img src="{{img_dir}}/thumbs/{{i}}" class="img-responsive">
+				</a>
+				{% if image_info[i]%}
+				<h4 style="margin:0px">{{image_info[i]["image_name"]}}
+				{% if image_info[i]["sold"] %}
+				<span style="color:red;"> sold</span>		
+				{% endif %}
+				</h4>
+				<p style="margin:0px">{{image_info[i]["description"]}}</p>
+				{% if image_info[i]["price"] %}
+				<p>Price: ${{image_info[i]["price"]}}</p>
+				{% endif %}
+				{% endif %}
+			</div>
 		</div>
-{% endfor %}
+		{% endfor %}
 	</div>
 </div>
 {% endblock %}

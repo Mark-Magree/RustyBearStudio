@@ -104,7 +104,6 @@ def gallery(gallery):
                                 gallery_name=gallery,
                                 gallery_list=gallery_list)
     else:
-        #TODO Redirect instead?
         return render_template('index.html',
                                 gallery_list=gallery_list)
 
