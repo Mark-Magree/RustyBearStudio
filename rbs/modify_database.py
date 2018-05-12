@@ -10,6 +10,33 @@ import subprocess
 IGNORED_DIRS = ['deco_images',]
 
 def add_events(s):
+    def get_month_txt(num):
+        n = int(num)
+        if n == 1:
+            return "January"
+        if n == 2:
+            return "February"
+        if n == 3:
+            return "March"
+        if n == 4:
+            return "April"
+        if n == 5:
+            return "May"
+        if n == 6:
+            return "June"
+        if n == 7:
+            return "July"
+        if n == 8:
+            return "August"
+        if n == 9:
+            return "September"
+        if n == 10:
+            return "October"
+        if n == 11:
+            return "November"
+        if n == 12:
+            return "December"
+        
     def commit_or_not(event):
         print(event)
         answer = input("Save? (y/n) ")
@@ -28,12 +55,12 @@ def add_events(s):
         name = input("name (leave blank if finished): ")
         if name == '':
             break
-        venue = input("venue: ")
         year = input("year (4 digit): ")
         month = input("month (2 digit): ").zfill(2)
+        month_txt = get_month_txt(month)
         day = input("date (2 digit): ").zfill(2)
         time_start = input("time to start (formatted, like '10:00am'): ")
-        time_end = input("time to end (formatted, like '4:00 pm'): ")
+        time_end = input("time to end (formatted, like '4:00pm'): ")
         is_two_days = input("Is this a two day show? (y/N): ")
         if len(is_two_days) == 0:
             is_two_days = "n"
@@ -42,6 +69,7 @@ def add_events(s):
             show_date = datetime.strptime(f"{day}-{month}-{year}", "%d-%m-%Y")
             show_date2 = show_date + timedelta(days=1)
             month2 = str(show_date2.month).zfill(2)
+            month2_txt = get_month_txt(month2)
             day2 = str(show_date2.day).zfill(2)
             time_start2 = input("time to start 2nd day (formatted, like '10:00am'): ")
             time_end2 = input("time to end 2nd day (formatted, like '4:00 pm'): ")
@@ -55,11 +83,11 @@ def add_events(s):
         street_name = input("street name: ")
         city = input("city: ")
         details = input("details (parking, entrance fee, we will be outdoors/indoors...): ")
-        new_event = Event(name=name, venue=venue, days=days, 
+        new_event = Event(name=name, days=days, 
                             year=year,
-                            month=month, day=day,
+                            month=month, month_txt=month_txt, day=day,
                             time_start=time_start, time_end=time_end,
-                            month2=month2, day2=day2,
+                            month2=month2, month2_txt=month2_txt, day2=day2,
                             time_start2=time_start2, time_end2=time_end2,
                             street_name=street_name,
                             street_number=street_number,

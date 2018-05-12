@@ -7,7 +7,7 @@
 <nav class="navbar navbar-default navbar-static-top" role="navigation" id="myNavbar">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="/">RBS Home</a>
+			<a class="navbar-brand" href="/">Rusty Bear Studio</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
@@ -19,13 +19,13 @@
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-{% for x in gallery_list %}
+					{% for x in gallery_list %}
 						<li class="active">
 							<a href="{{x}}">
 								{{x|replace('_',' ')|title()}}
 							</a>
 						</li>
-{% endfor %}
+					{% endfor %}
 					</ul>
 				</li>
 			</ul>

@@ -3,30 +3,35 @@
 <div class='container'>
 	<div class="jumbotron">
 		<div class="row">
-		<h1>Rusty Bear Studio</h1>
-		<h2>by Cristen Magree</h2>
-		<br>
-		<h2 class="text-center">Show List</h2>
-		{% for show in show_list %}
-			<div class="col-xs-12">
-				<h2 class="text-center">{{show.name}}</h2>
-				<h3 class="text-center">{{show.venue}}</h3>
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-					<ul>
-						<li>{{show.month}}-{{show.day}}  {{show.time_start}} to {{show.time_end}}</li>
-					{% if show.days == 2 %}
-						<li>{{show.month2}}-{{show.day2}}  {{show.time_start2}} to {{show.time_end2}}</li>
-					{% endif %}
-					</ul>
-				</div>
-				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-					<ul>
-						<li>{{show.street_number}} {{show.street_name}}</li>
-						<li>{{show.city}}</li>
-					</ul>
-				</div>
-			</div>
-		{% endfor %}
+			<h1>Rusty Bear Studio</h1>
+			<h2>by Cristen Magree</h2>
+			<br>
+			<h2 class="text-center">Show List</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Event</th>
+						<th>Date</th>
+						<th>Day 1</th>
+						<th>Day 2</th>
+						<th>Address</th>
+						<th>Notes</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for show in show_list %}
+					<tr>
+						<td>{{show.name}}</td>
+						<td>{{show.month_txt}} {{show.day}}
+							{% if show.days == 2 %} + {{show.month2_txt}} {{show.day2}} {% endif %}</td>
+						<td>{{show.time_start}} - {{show.time_end}}</td>
+						<td>{{show.time_start2}} = {{show.time_end2}}</td>
+						<td>{{show.street_number}} {{show.street_name}}, {{show.city}}</td>
+						<td>{{show.details}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>
